@@ -11,6 +11,11 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+    if @movie.reviews.blank?
+      @avarge_review = 0
+    else 
+      @avarge_review = @movie.reviews.average(:rating).round(2)
+    end
   end
 
   # GET /movies/new

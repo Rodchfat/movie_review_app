@@ -19,19 +19,21 @@
              <tr><td><strong>Ratingh:</strong></td>
                 <td><%= @movie.rating %></td>
             </tr>
+            <tr><td><strong>Avarge Rating:</strong></td>
+                <td><div class= "star-rating" data-score = <%= @avarge_review %>></div></td>
+            </tr></br>
             
-            <tr><td><strong><h2>Add a Review:</h2>
+            <tr><td><div class= "reviews"><h3>Add a Review: </h3></div>
 <%= form_for([@movie, @movie.reviews.build]) do |f| %>
   <p>
-    <%= f.label :rating %><br>
-    <%= f.number_field :rating %>
+    <div id="star-rating"></div>
   </p>
   <p>
     <%= f.label :comment %><br>
     <%= f.text_area :comment %>
   </p>
   <p>
-    <%= f.submit %>
+    <%= f.submit class: "btn  btn-danger" %>
   </p>
 <% end %></strong></td></tr>
           </tbody>
@@ -56,6 +58,10 @@
     score: function(){
       return $(this).attr('data-score');
     }
+  });
+</script>
+<script>
+  $('#star-rating').raty({path: '/assets/', scoreName: 'review[rating]'
   });
 </script>
 </div>
