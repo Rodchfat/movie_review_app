@@ -19,11 +19,7 @@
              <tr><td><strong>Ratingh:</strong></td>
                 <td><%= @movie.rating %></td>
             </tr>
-            <tr><td><% @movie.reviews.each do |r| %></td>
-          <td><%= r.rating %></td>
-          <td><%= r.comment %></td>
-          <% end %>
-            </tr>            
+            
             <tr><td><strong><h2>Add a Review:</h2>
 <%= form_for([@movie, @movie.reviews.build]) do |f| %>
   <p>
@@ -42,10 +38,24 @@
         </table>
       </div>
       </div>
+      <div class="col-md-4 pull-right">
+        <h3> Movie Reviews</h3>
+            <td><% @movie.reviews.each do |r| %></td>
+            <td><div class= "star-rating" data-score = <%= r.rating %>></div></td>
+          <td> <%= r.comment %></td>
+          <% end %>
+            
+          </div>
     </div>
   </div>
 </div>
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %> |
-<%#= link_to 'Add Review', new_review_path(@movie) %>
+<script>
+  $('.star-rating').raty({path: '/assets/', readOnly: true, 
+    score: function(){
+      return $(this).attr('data-score');
+    }
+  });
+</script>
 </div>
