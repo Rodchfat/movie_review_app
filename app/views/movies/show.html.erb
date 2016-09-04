@@ -2,7 +2,7 @@
 <div class= "panel panel-default">
   <div class="panel-body">
     <div class= "row">
-      <div class="col-md-4">
+      <div class="col-md-8">
       <%= image_tag @movie.image.url(:medium) %>
       <div class="table-responsive">
         <table class="table">
@@ -19,6 +19,25 @@
              <tr><td><strong>Ratingh:</strong></td>
                 <td><%= @movie.rating %></td>
             </tr>
+            <tr><td><% @movie.reviews.each do |r| %></td>
+          <td><%= r.rating %></td>
+          <td><%= r.comment %></td>
+          <% end %>
+            </tr>            
+            <tr><td><strong><h2>Add a Review:</h2>
+<%= form_for([@movie, @movie.reviews.build]) do |f| %>
+  <p>
+    <%= f.label :rating %><br>
+    <%= f.number_field :rating %>
+  </p>
+  <p>
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %></strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -27,5 +46,6 @@
   </div>
 </div>
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+<%= link_to 'Back', movies_path %> |
+<%#= link_to 'Add Review', new_review_path(@movie) %>
 </div>
